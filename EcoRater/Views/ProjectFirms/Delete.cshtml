@@ -1,0 +1,22 @@
+﻿@model EcoRater.Models.ProjectFirm
+
+<h2>Confirm Delete</h2>
+
+<p>Are you sure you want to delete the following Project Firm?</p>
+
+<div>
+    <strong>Name:</strong> @Model.Name
+</div>
+<div>
+    <strong>Description:</strong> @Model.Description
+</div>
+<div>
+    <strong>Region:</strong> @Model.Region
+</div>
+<!-- Add other fields if needed -->
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Delete" />
+    <a href="@Url.Action("Index")">Cancel</a>
+</form>

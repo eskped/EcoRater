@@ -1,0 +1,20 @@
+﻿@model EcoRater.Models.ProjectFirm
+
+<h2>Create Project Firm</h2>
+
+<form asp-action="Create">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <div>
+        <label asp-for="Region"></label>
+        <input asp-for="Region" />
+    </div>
+    <!-- Add other fields if needed -->
+    <button type="submit">Create</button>
+</form>

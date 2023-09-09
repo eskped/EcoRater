@@ -1,0 +1,21 @@
+﻿@model EcoRater.Models.ProjectFirm
+
+<h2>Edit Project Firm</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+    </div>
+    <div>
+        <label asp-for="Region"></label>
+        <input asp-for="Region" />
+    </div>
+    <!-- Add other fields if needed -->
+    <input type="submit" value="Save" />
+</form>
