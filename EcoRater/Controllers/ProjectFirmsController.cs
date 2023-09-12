@@ -40,7 +40,7 @@ namespace EcoRater.Controllers
                 return RedirectToAction(nameof(Index));
             //}
 
-            return View(projectFirm);
+            // return View(projectFirm);
         }
 
         // GET: Edit ProjectFirm by ID
@@ -93,7 +93,8 @@ namespace EcoRater.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var projectFirm = _context.ProjectFirms.Find(id);
-            _context.ProjectFirms.Remove(projectFirm);
+
+            _ = _context.ProjectFirms.Remove(projectFirm);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
