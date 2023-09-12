@@ -3,6 +3,13 @@
 }
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    <a href="@Url.Action("", "ProjectFirms")">View my projects and firms</a>
+    <a href="@Url.Action("Create", "ProjectFirms")">Create a new project or firm</a>
+
+    <a href="@Url.Action("Assessment", "Sustainability")">Answers questions about firm or project</a>
+    <a href="@Url.Action("Rating", "Sustainability")">View AI generated questions</a>
+
 </div>
 

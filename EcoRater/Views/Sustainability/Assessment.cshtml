@@ -61,9 +61,10 @@
             <label for="ImpactOnLandUse">Do you have a direct impact on land use (e.g., farming, mining, construction)?</label>
             <select class="form-control" id="ImpactOnLandUse" name="ImpactOnLandUse" required>
                 <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
             </select>
+
         </div>
 
         <!-- Stakeholder & Employee Dynamics -->
@@ -96,6 +97,8 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
+
+    <a href="@Url.Action("DisplayAIQuestions", "SustainabilityAssessment")">View AI Questions</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

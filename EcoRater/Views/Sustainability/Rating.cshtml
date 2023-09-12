@@ -1,0 +1,10 @@
+﻿@model IEnumerable<EcoRater.Models.Rating>
+
+<h2>Questions from AI</h2>
+
+<ul>
+    @foreach (var question in Model)
+    {
+        <li>@question.QuestionText</li>
+    }
+</ul>
