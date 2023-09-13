@@ -12,7 +12,5 @@ public class ApplicationDbContext : IdentityDbContext
     }
 
     public DbSet<ProjectFirm> ProjectFirms { get; set; }
-    public DbSet<SustainabilityAssessment> SustainabilityAssessments { get; set; }
-    public DbSet<Rating> Ratings { get; set; }
 }
 

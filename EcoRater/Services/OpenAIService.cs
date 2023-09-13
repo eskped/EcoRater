@@ -22,7 +22,7 @@ namespace EcoRater.Services
         {
 
             var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
-            OpenAIAPI api = new OpenAIAPI(apiKey);
+            OpenAIAPI api = new (apiKey);
 
             // Create a new chat conversation
             var chat = api.Chat.CreateConversation();
@@ -33,12 +33,29 @@ namespace EcoRater.Services
          
             chat.AppendUserInput(userInput);
             string response = await chat.GetResponseFromChatbotAsync();
-            Console.WriteLine("\n\n\n" + response);
+            // Console.WriteLine("\n\n\n" + response);
+
+            return response;     
+        }
+
+        public async Task<String> GetRating(string userAnswers)
+        {
+
+            var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
+            OpenAIAPI api = new(apiKey);
+
+            // Create a new chat conversation
+            var chat = api.Chat.CreateConversation();
+
+            // Provide instruction to the chatbot
+            chat.AppendSystemMessage("You are EcoRater, an AI-powered sustainability assessment tool designed to provide customized questions about a business or project's sustainability. Based on the general answers provided by the user about their venture, craft specific questions that will delve deeper into the details of their sustainability practices and alignment with Environmental, Social, and Economic pillars. Your questions should be tailored to the unique characteristics and operations of the business or project in question.\n");
 
 
-            return response;
-            
-            
+            chat.AppendUserInput(userAnswers);
+            string response = await chat.GetResponseFromChatbotAsync();
+            // Console.WriteLine("\n\n\n" + response);
+
+            return chat;
         }
     }
 }

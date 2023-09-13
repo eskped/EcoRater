@@ -23,30 +23,14 @@ namespace EcoRater.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("BusinessNature")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BusinessSize")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ProjectFirms");
-                });
-
-            modelBuilder.Entity("EcoRater.Models.Rating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
 
                     b.Property<double?>("EconomicRating")
                         .HasColumnType("REAL");
@@ -55,43 +39,6 @@ namespace EcoRater.Data.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("FutureRecommendations")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OverallRating")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("ProjectFirmId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("QuestionText")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("SocialRating")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("UserAnswers")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectFirmId");
-
-                    b.ToTable("Ratings");
-                });
-
-            modelBuilder.Entity("EcoRater.Models.SustainabilityAssessment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("BusinessNature")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BusinessSize")
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("ImpactOnLandUse")
@@ -103,10 +50,16 @@ namespace EcoRater.Data.Migrations
                     b.Property<bool?>("ManufacturingInvolved")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("NumberOfEmployees")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("OperationalRegions")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OverallRating")
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("PreviousSustainabilityInitiatives")
@@ -115,8 +68,14 @@ namespace EcoRater.Data.Migrations
                     b.Property<bool?>("ProduceEmissionsOrWaste")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProjectFirmId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("QuestionsText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Region")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("SocialRating")
+                        .HasColumnType("REAL");
 
                     b.Property<bool?>("SourcingFromOutside")
                         .HasColumnType("INTEGER");
@@ -124,16 +83,17 @@ namespace EcoRater.Data.Migrations
                     b.Property<string>("SourcingType")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserAnswers")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectFirmId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("SustainabilityAssessments");
+                    b.ToTable("ProjectFirms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -337,30 +297,6 @@ namespace EcoRater.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EcoRater.Models.Rating", b =>
-                {
-                    b.HasOne("EcoRater.Models.ProjectFirm", "ProjectFirm")
-                        .WithMany()
-                        .HasForeignKey("ProjectFirmId");
-
-                    b.Navigation("ProjectFirm");
-                });
-
-            modelBuilder.Entity("EcoRater.Models.SustainabilityAssessment", b =>
-                {
-                    b.HasOne("EcoRater.Models.ProjectFirm", "ProjectFirm")
-                        .WithMany()
-                        .HasForeignKey("ProjectFirmId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("ProjectFirm");
 
                     b.Navigation("User");
                 });

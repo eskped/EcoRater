@@ -1,0 +1,24 @@
+﻿@model ProjectFirm
+
+<h2>Sustainability Assessment</h2>
+<form method="post" action="@Url.Action("SaveAnswers", new { id = Model.Id })">
+    <!-- Assuming you have an action method called SaveAnswers to handle the answers -->
+
+    @{
+        var questions = Model.QuestionsText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        int questionNumber = 0;
+    }
+
+
+    @foreach (var question in questions)
+    {
+        questionNumber++;
+
+        <label for="answer-@questionNumber">@question</label>
+        <textarea id="answer-@questionNumber" name="answers" class="form-control" rows="3"></textarea> <!-- Use textarea for longer responses -->
+
+    }
+
+
+    <button type="submit" class="btn btn-primary">Submit Answers</button>
+</form>

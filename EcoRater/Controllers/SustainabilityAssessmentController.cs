@@ -25,12 +25,12 @@ namespace EcoRater.Controllers
         [HttpGet]
         public IActionResult Assessment()
         {
-            return View(new SustainabilityAssessment());
+            return View(new ProjectFirm());
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Assessment(SustainabilityAssessment model)
+        public async Task<IActionResult> Assessment(ProjectFirm model)
         {
             //if (!ModelState.IsValid)
             //{
@@ -40,10 +40,7 @@ namespace EcoRater.Controllers
             try
             {
                 model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                // TODO 
-                // Example: Setting the ProjectFirmId (You'll have to define how to get this value)
-                // model.ProjectFirmId = someMethodToDetermineProjectFirmId();
+                var id = model.Id;
 
                 var description = new StringBuilder();
                 description.AppendLine($"Industry: {model.Industry}");
@@ -58,11 +55,11 @@ namespace EcoRater.Controllers
                 description.AppendLine($"NaturalResourceUse: {model.ProduceEmissionsOrWaste}");
 
 
-
                 Console.WriteLine("\n\n\n description" + description.ToString());
 
-                _context.SustainabilityAssessments.Add(model);
-                _context.SaveChanges();
+
+                _context.Update(model);
+                await _context.SaveChangesAsync();
 
                 // Use the OpenAIService to initiate a chat and retrieve the response
                 string responseFromAI = await _openAiService.GetQuestions(description.ToString());
@@ -72,16 +69,9 @@ namespace EcoRater.Controllers
                 // Assuming responseFromAI is a string of questions separated by newline or some delimiter
                 var questions = responseFromAI.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                
-                var rating = new Rating
-                {
-                    QuestionText = responseFromAI,
-                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-                };
 
-                _context.Ratings.Add(rating);
-                
-
+                model.QuestionsText = responseFromAI;
+                _context.Update(model);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Rating", "Sustainability");
@@ -97,17 +87,17 @@ namespace EcoRater.Controllers
 
         }
 
-        public IActionResult DisplayRatings()
-        {
-            var questions = _context.Ratings.ToList();
-            return View(questions);
-        }
+        //public IActionResult DisplayRatings()
+        //{
+        //    var questions = _context.Ratings.ToList();
+        //    return View(questions);
+        //}
 
-        public IActionResult Rating()
-        {
-            var ratings = _context.Ratings.ToList();
-            return View(ratings);
-        }
+        //public IActionResult Rating()
+        //{
+        //    var ratings = _context.Ratings.ToList();
+        //    return View(ratings);
+        //}
 
     }
 }
