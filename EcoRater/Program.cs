@@ -18,7 +18,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IOpenAIService, OpenAIService>();
 builder.Services.AddHttpClient<OpenAIService>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,7 +28,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -45,5 +43,14 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.Run();
+// Database migration logic for production
+if (app.Environment.IsProduction())
+{
+    using (var serviceScope = app.Services.CreateScope())
+    {
+        var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+    }
+}
 
+app.Run();
