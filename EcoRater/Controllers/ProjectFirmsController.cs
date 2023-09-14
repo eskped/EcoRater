@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Security.Claims;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace EcoRater.Controllers
 {
@@ -14,11 +15,14 @@ namespace EcoRater.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IOpenAIService _openAiService;
+        private readonly ILogger<ProjectFirmsController> _logger;
 
-        public ProjectFirmsController(IOpenAIService openAiService, ApplicationDbContext context)
+        public ProjectFirmsController(IOpenAIService openAiService, ApplicationDbContext context,
+            ILogger<ProjectFirmsController> logger)
         {
             _openAiService = openAiService;
             _context = context;
+            _logger = logger;
         }
 
 
@@ -190,6 +194,7 @@ namespace EcoRater.Controllers
             var projectFirm = _context.ProjectFirms.Find(id);
             if (projectFirm == null)
             {
+                _logger.LogInformation($"Model passed to view: {JsonConvert.SerializeObject(projectFirm)}");
                 return NotFound();
             }
             return View(projectFirm); ;

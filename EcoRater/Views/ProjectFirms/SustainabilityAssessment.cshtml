@@ -4,6 +4,11 @@
 <form method="post" action="@Url.Action("SustainabilityAssessment", new { id = Model.Id })">
 
     @{
+        if (Model?.QuestionsText == null)
+        {
+            <p>No questions available.</p>
+            return; // This stops processing the rest of the Razor view.
+        }
         var questions = Model.QuestionsText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
         int questionNumber = 0;
     }
