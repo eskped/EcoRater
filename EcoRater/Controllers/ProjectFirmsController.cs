@@ -102,7 +102,7 @@ namespace EcoRater.Controllers
 
             // Here, I'm saving answers as a single string separated by a special character, e.g., '|'.
             // This is a simplistic approach and might not be suitable for more complex requirements.
-            projectFirm.UserAnswers = string.Join("\n", answers);
+            projectFirm.UserAnswers = string.Join("\n", answers.Select((answer, index) => $"{index + 1}. {answer}"));
 
             _context.Update(projectFirm);
             await _context.SaveChangesAsync();
@@ -165,9 +165,10 @@ namespace EcoRater.Controllers
 
 
                 // Use the OpenAIService to initiate a chat and retrieve the response
-                string responseFromAI = await _openAiService.GetQuestions(description.ToString());
-                originalEntity.QuestionsText = responseFromAI;
+                string questionsFromAI = await _openAiService.GetQuestions(description.ToString());
+                originalEntity.QuestionsText = questionsFromAI;
 
+               
                 _context.Update(originalEntity);
                 await _context.SaveChangesAsync();
 
@@ -193,6 +194,89 @@ namespace EcoRater.Controllers
             }
             return View(projectFirm); ;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SustainabilityAssessment(ProjectFirm model, List<String> answers)
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var projectFirm = await _context.ProjectFirms.FindAsync(model.Id);
+
+                if (projectFirm == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Entity not found.");
+                    return View(model);
+                }
+
+                // Construct UserAnswers
+                StringBuilder userAnswersBuilder = new StringBuilder();
+                for (int i = 0; i < answers.Count; i++)
+                {
+                    userAnswersBuilder.AppendLine($"{i + 1}. {answers[i]}");
+                }
+                projectFirm.UserAnswers = userAnswersBuilder.ToString();
+
+                string rating = await _openAiService.GetRating(projectFirm.QuestionsText + "|||" + projectFirm.UserAnswers);
+
+                // projectFirm.UserAnswers = userAnswers;
+
+                var ratingsList = rating.Split(";").ToList();
+
+                while (ratingsList.Count < 6)
+                {
+                    ratingsList.Add("");
+                }
+
+                projectFirm.OverallRating = ratingsList[0];
+                if (double.TryParse(ratingsList[1], out double parsedValue1))
+                {
+                    projectFirm.EnvironmentalRating = parsedValue1;
+                }
+                if (double.TryParse(ratingsList[2], out double parsedValue2))
+                {
+                    projectFirm.SocialRating = parsedValue2;
+                }
+                if (double.TryParse(ratingsList[3], out double parsedValue3))
+                {
+                    projectFirm.EconomicRating = parsedValue3;
+                }
+                // projectFirm.OverallFeedback = ratingsList[4];
+                projectFirm.FutureRecommendations = ratingsList[4];
+
+                _context.Update(projectFirm);
+                await _context.SaveChangesAsync();
+
+                // After saving, redirect to a confirmation page or another appropriate action.
+                return RedirectToAction("Index");
+             }
+            catch
+            {
+                // Log the exception if needed
+                ModelState.AddModelError(string.Empty, "There was an unexpected error. Please try again.");
+                Console.WriteLine("\n\n\nthere was an error");
+                return View(model);
+            }
+        }
+
+
+        public async Task<IActionResult> ViewRating(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var projectFirm = await _context.ProjectFirms.FindAsync(id);
+
+            if (projectFirm == null)
+            {
+                return NotFound();
+            }
+
+            return View(projectFirm);
+        }
+
 
 
         // GET: Delete ProjectFirm by ID
