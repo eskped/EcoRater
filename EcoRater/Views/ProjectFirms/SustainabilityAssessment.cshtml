@@ -6,7 +6,7 @@
     @{
         if (Model?.QuestionsText == null)
         {
-            <p>No questions available.</p>
+            <p>No questions available:( </p>
             return; // This stops processing the rest of the Razor view.
         }
         var questions = Model.QuestionsText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
