@@ -12,17 +12,22 @@ namespace EcoRater.Services
     public class OpenAIService : IOpenAIService
     {
         private readonly IConfiguration _configuration;
+        private readonly string _apiKey;
 
         public OpenAIService(IConfiguration configuration)
         {
             _configuration = configuration;
+            _apiKey = configuration["ApiKeyOpenAI"];
         }
 
         public async Task<String> GetQuestions(string userInput)
         {
+            // var apiKey = Configuration["OpenAIApiKey"];
 
-            var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
-            OpenAIAPI api = new (apiKey);
+            // var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
+            var apiKey = _configuration["OpenAIApiKey"];
+
+            OpenAIAPI api = new (_apiKey);
 
             // Create a new chat conversation
             var chat = api.Chat.CreateConversation();

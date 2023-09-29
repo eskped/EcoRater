@@ -178,11 +178,14 @@ namespace EcoRater.Controllers
 
                 return View(model);
             }
-            catch
+            catch (Exception ex)
             {
-                // Log the exception if needed
+                var errorMessage = $"Exception occurred: {ex.Message}, StackTrace: {ex.StackTrace}";
+                if (ex.InnerException != null)
+                    errorMessage += $", InnerException: {ex.InnerException.Message}";
+                Console.WriteLine(errorMessage);  // Replace with your logging mechanism
                 ModelState.AddModelError(string.Empty, "There was an unexpected error. Please try again.");
-                Console.WriteLine("\n\n\nthere was an error");
+
                 return View(model);
             }
 
