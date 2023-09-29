@@ -17,16 +17,28 @@ namespace EcoRater.Services
         public OpenAIService(IConfiguration configuration)
         {
             _configuration = configuration;
-            _apiKey = configuration["ApiKeyOpenAI"];
+            try
+            {
+                _apiKey = configuration["OpenAIApiKey"];
+                if (string.IsNullOrEmpty(_apiKey))
+                {
+                    throw new Exception("API Key not found in configuration.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                // log the exception as necessary
+            }
         }
 
         public async Task<String> GetQuestions(string userInput)
         {
-            // var apiKey = Configuration["OpenAIApiKey"];
-
+            // var apiKey = Configuration["OpenAIApiKey
             // var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
-            var apiKey = _configuration["OpenAIApiKey"];
+            // var apiKey = _configuration["OpenAIApiKey"];
 
+            Console.WriteLine("\n\n\n _apiKey", _apiKey);
             OpenAIAPI api = new (_apiKey);
 
             // Create a new chat conversation

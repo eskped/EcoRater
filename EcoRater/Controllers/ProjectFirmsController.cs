@@ -168,7 +168,7 @@ namespace EcoRater.Controllers
                 description.AppendLine($"NaturalResourceUse: {model.ProduceEmissionsOrWaste}");
 
 
-                // Use the OpenAIService to initiate a chat and retrieve the response
+                // Use the OpenAIService to initiate a chat and retrieve the response
                 string questionsFromAI = await _openAiService.GetQuestions(description.ToString());
                 originalEntity.QuestionsText = questionsFromAI;
 
