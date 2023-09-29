@@ -1,20 +1,33 @@
 ﻿@model EcoRater.Models.ProjectFirm
 
-<h2>Create Project Firm</h2>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="my-4">Create Project or Firm</h2>
 
-<form asp-action="Create">
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
+            <form asp-action="Create">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Region" class="form-label"></label>
+                    <input asp-for="Region" class="form-control" />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("Index", "ProjectFirms")" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description"></textarea>
-    </div>
-    <div>
-        <label asp-for="Region"></label>
-        <input asp-for="Region" />
-    </div>
-    <!-- Add other fields if needed -->
-    <button type="submit">Create</button>
-</form>
+</div>

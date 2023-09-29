@@ -1,15 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome!</h1>
 
+<div class="container text-center">
+    <h1 class="display-4">Welcome to EcoRater!</h1>
+    <p class="lead">Your personalized AI-powered sustainability assessment tool.</p> <!-- Optional subheading -->
 
-    <a href="@Url.Action("", "ProjectFirms")">View my projects and firms</a>
-    <a href="@Url.Action("Create", "ProjectFirms")">Create a new project or firm</a>
-
-    <a href="@Url.Action("Assessment", "Sustainability")">Answers questions about firm or project</a>
-    <a href="@Url.Action("Rating", "Sustainability")">View AI generated questions</a>
-
+    <div class="mt-4">
+        <a href="@Url.Action("", "ProjectFirms")" class="btn btn-primary mr-2">View my projects and firms</a>
+        <a href="@Url.Action("Create", "ProjectFirms")" class="btn btn-secondary">Create a new project or firm</a>
+    </div>
 </div>
-

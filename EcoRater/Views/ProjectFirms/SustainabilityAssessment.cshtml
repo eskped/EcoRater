@@ -1,28 +1,37 @@
 ﻿@model ProjectFirm
 
-<h2>Sustainability Assessment</h2>
-<form method="post" action="@Url.Action("SustainabilityAssessment", new { id = Model.Id })">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2>Sustainability Assessment</h2>
+            <a href="@Url.Action("Index", "ProjectFirms")" class="btn btn-secondary btn-sm mr-3">Back</a>
 
-    @{
-        if (Model?.QuestionsText == null)
-        {
-            <p>No questions available:( </p>
-            return; // This stops processing the rest of the Razor view.
-        }
-        var questions = Model.QuestionsText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        int questionNumber = 0;
-    }
+            <form method="post" action="@Url.Action("SustainabilityAssessment", new { id = Model.Id })">
 
-
-    @foreach (var question in questions)
-    {
-        questionNumber++;
-
-        <label for="answer-@questionNumber">@question</label>
-        <textarea id="answer-@questionNumber" name="answers" class="form-control" rows="2"></textarea> <!-- Use textarea for longer responses -->
-
-    }
+                @{
+                    if (Model?.QuestionsText == null)
+                    {
+                        <p>No questions available:( </p>
+                        return; // This stops processing the rest of the Razor view.
+                    }
+                    var questions = Model.QuestionsText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    int questionNumber = 0;
+                }
 
 
-    <button type="submit" class="btn btn-primary">Submit Answers</button>
-</form>
+                @foreach (var question in questions)
+                {
+                    questionNumber++;
+
+                    <label for="answer-@questionNumber">@question</label>
+                    <textarea id="answer-@questionNumber" name="answers" class="form-control" rows="2"></textarea> <!-- Use textarea for longer responses -->
+
+                }
+
+
+                <button type="submit" class="btn btn-primary">Submit Answers</button>
+
+            </form>
+        </div>
+    </div>
+</div>

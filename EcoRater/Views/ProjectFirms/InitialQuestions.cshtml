@@ -5,100 +5,105 @@
 }
 
 <div class="container mt-5">
-    <h2>Initial Questions</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
 
-    <form method="post" class="mt-4">
-        <!-- Nature of the Business/Project -->
-        <div class="form-group">
-            <label for="Industry">What is the primary industry or sector of your business/project?</label>
-            <input type="text" class="form-control" id="Industry" name="Industry" placeholder="e.g., technology, manufacturing" required>
-        </div>
-        <div class="form-group">
-            <label for="BusinessNature">Is the business/project primarily online, offline, or a mix of both?</label>
-            <select class="form-control" id="BusinessNature" name="BusinessNature" required>
-                <option value="">Select</option>
-                <option value="Online">Online</option>
-                <option value="Offline">Offline</option>
-                <option value="Both">Both</option>
-            </select>
-        </div>
+            <h2>Initial Questions</h2>
+            <a href="@Url.Action("Index", "ProjectFirms")" class="btn btn-secondary btn-sm mr-3">Back</a>
 
-        <!-- Scale & Geography -->
-        <div class="form-group">
-            <label for="BusinessSize">How would you describe the size of your business/project?</label>
-            <select class="form-control" id="BusinessSize" name="BusinessSize" required>
-                <option value="">Select</option>
-                <option value="Startup">Startup</option>
-                <option value="SME">SME</option>
-                <option value="LargeCorporation">Large Corporation</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="OperationalRegions">In which regions or countries does your business/project primarily operate?</label>
-            <input type="text" class="form-control" id="OperationalRegions" name="OperationalRegions" placeholder="e.g., Europe, USA, Global" required>
-        </div>
+            <form method="post" class="mt-4">
 
-        <!-- Supply Chain & Operations -->
-        <div class="form-group">
-            <label for="ManufacturingInvolved">Does your business/project involve manufacturing or physical production of goods?</label>
-            <select class="form-control" id="ManufacturingInvolved" name="ManufacturingInvolved" required>
-                <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="SourcingType">Do you source materials or products from outside suppliers? If so, are these local or international?</label>
-            <select class="form-control" id="SourcingType" name="SourcingType" required>
-                <option value="">Select</option>
-                <option value="Local">Local</option>
-                <option value="International">International</option>
-                <option value="Both">Both</option>
-                <option value="None">None</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="ImpactOnLandUse">Do you have a direct impact on land use (e.g., farming, mining, construction)?</label>
-            <select class="form-control" id="ImpactOnLandUse" name="ImpactOnLandUse" required>
-                <option value="">Select</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
+                <!-- Nature of the Business/Project -->
+                <h4 class="mb-3">Nature of the Business/Project</h4>
+                <div class="form-group">
+                    <label for="Industry">What is the primary industry or sector of your business/project?</label>
+                    <input type="text" class="form-control" id="Industry" name="Industry" placeholder="e.g., technology, manufacturing" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="BusinessNature">Is the business/project primarily online, offline, or a mix of both?</label>
+                    <select class="form-control" id="BusinessNature" name="BusinessNature" required>
+                        <option value="">Select</option>
+                        <option value="Online">Online</option>
+                        <option value="Offline">Offline</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+
+                <!-- Scale & Geography -->
+                <h4 class="mb-3 mt-5">Scale & Geography</h4>
+                <div class="form-group">
+                    <label for="BusinessSize">How would you describe the size of your business/project?</label>
+                    <select class="form-control" id="BusinessSize" name="BusinessSize" required>
+                        <option value="">Select</option>
+                        <option value="Startup">Startup</option>
+                        <option value="SME">SME</option>
+                        <option value="LargeCorporation">Large Corporation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="OperationalRegions">In which regions or countries does your business/project primarily operate?</label>
+                    <input type="text" class="form-control" id="OperationalRegions" name="OperationalRegions" placeholder="e.g., Europe, USA, Global" required>
+                </div>
+
+                <!-- Supply Chain & Operations -->
+                <h4 class="mb-3 mt-5">Supply Chain & Operations</h4>
+                <div class="form-group">
+                    <label for="ManufacturingInvolved">Does your business/project involve manufacturing or physical production of goods?</label>
+                    <select class="form-control" id="ManufacturingInvolved" name="ManufacturingInvolved" required>
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="SourcingType">Do you source materials or products from outside suppliers? If so, are these local or international?</label>
+                    <select class="form-control" id="SourcingType" name="SourcingType" required>
+                        <option value="">Select</option>
+                        <option value="Local">Local</option>
+                        <option value="International">International</option>
+                        <option value="Both">Both</option>
+                        <option value="None">None</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ImpactOnLandUse">Do you have a direct impact on land use (e.g., farming, mining, construction)?</label>
+                    <select class="form-control" id="ImpactOnLandUse" name="ImpactOnLandUse" required>
+                        <option value="">Select</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+
+                </div>
+
+                <!-- Stakeholder & Employee Dynamics -->
+                <h4 class="mb-3 mt-5">Employees</h4>
+                <div class="form-group">
+                    <label for="NumberOfEmployees">Approximately how many employees are part of your business/project?</label>
+                    <input type="number" class="form-control" id="NumberOfEmployees" name="NumberOfEmployees" placeholder="e.g., 100" required>
+                </div>
+
+                <!-- Previous Sustainability Initiatives -->
+                <h4 class="mb-3 mt-5">Previous Sustainability Initiatives</h4>
+                <div class="form-group">
+                    <label for="PreviousSustainabilityInitiatives">Has your business/project previously engaged in any sustainability initiatives or certifications?</label>
+                    <select class="form-control" id="PreviousSustainabilityInitiatives" name="PreviousSustainabilityInitiatives" required>
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group mt-5">
+                    <button type="submit" class="btn btn-primary mr-3">Submit</button>
+                    <a href="@Url.Action("Index", "ProjectFirms")" class="btn btn-secondary">Back</a>  <!-- Adjust the action and controller names accordingly -->
+                </div>
+            </form>
 
         </div>
-
-        <!-- Stakeholder & Employee Dynamics -->
-        <div class="form-group">
-            <label for="NumberOfEmployees">Approximately how many employees are part of your business/project?</label>
-            <input type="number" class="form-control" id="NumberOfEmployees" name="NumberOfEmployees" placeholder="e.g., 100" required>
-        </div>
-
-        <!-- Previous Sustainability Initiatives -->
-        <div class="form-group">
-            <label for="PreviousSustainabilityInitiatives">Has your business/project previously engaged in any sustainability initiatives or certifications?</label>
-            <select class="form-control" id="PreviousSustainabilityInitiatives" name="PreviousSustainabilityInitiatives" required>
-                <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="ProduceEmissionsOrWaste">Are there any processes within your business/project that might produce emissions or waste?</label>
-            <select class="form-control" id="ProduceEmissionsOrWaste" name="ProduceEmissionsOrWaste" required>
-                <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
-
-    <a href="@Url.Action("SustainabilityAssessment", "ProjectFirms")">View AI Questions</a>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

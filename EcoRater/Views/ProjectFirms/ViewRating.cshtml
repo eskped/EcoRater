@@ -1,22 +1,43 @@
 ﻿@model ProjectFirm
 
-<h2>Sustainability Rating for @Model.Name</h2> <!-- Assuming there's a FirmName property on your model -->
+@{
+    bool successOverall = float.TryParse(Model.OverallRating, out float floatOverallRating);
 
-<div class="rating-container">
-    <h3>Overall Rating:</h3>
-    <p>@Model.OverallRating</p>
+}
 
-    <h3>Environmental Rating:</h3>
-    <p>@Model.EnvironmentalRating</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2>Sustainability Rating for @Model.Name</h2> <!-- Assuming there's a Name property on your model -->
 
-    <h3>Social Rating:</h3>
-    <p>@Model.SocialRating</p>
+            <div class="rating-container">
+                <h4>Overall Rating: @Model.OverallRating/10</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: @(floatOverallRating * 10)%;" aria-valuenow="@Model.OverallRating" aria-valuemin="0" aria-valuemax="10"></div>
+                </div>
 
-    <h3>Economic Rating:</h3>
-    <p>@Model.EconomicRating</p>
+                <h4>Environmental Rating: @Model.EnvironmentalRating/10</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: @(Model.EnvironmentalRating * 10)%;" aria-valuenow="@Model.EnvironmentalRating" aria-valuemin="0" aria-valuemax="10"></div>
+                </div>
 
-    <h3>Future Recommendations and Overall Feedback:</h3>
-    <p>@Model.FutureRecommendations</p>
+                <h4>Social Rating: @Model.SocialRating/10</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: @(Model.SocialRating * 10)%;" aria-valuenow="@Model.SocialRating" aria-valuemin="0" aria-valuemax="10"></div>
+                </div>
+
+                <h4>Economic Rating: @Model.EconomicRating/10</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: @(Model.EconomicRating * 10)%;" aria-valuenow="@Model.EconomicRating" aria-valuemin="0" aria-valuemax="10"></div>
+                </div>
+            </div>
+
+            <br />
+
+            <h3>Future Recommendations and Overall Feedback:</h3>
+            <p>@Html.Raw(Model?.FutureRecommendations.Replace("\n", "<br />"))</p>
+
+        </div>
+    </div>
 </div>
 
-<!-- Add navigation buttons or links here as necessary -->
