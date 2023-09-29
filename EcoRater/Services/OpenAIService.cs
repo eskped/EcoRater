@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using OpenAI.ObjectModels.RequestModels;
 using EcoRater.Interfaces;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 namespace EcoRater.Services
 {
@@ -12,34 +14,27 @@ namespace EcoRater.Services
     public class OpenAIService : IOpenAIService
     {
         private readonly IConfiguration _configuration;
-        private readonly string _apiKey;
+        private readonly SecretClient _secretClient;
 
         public OpenAIService(IConfiguration configuration)
         {
             _configuration = configuration;
-            try
-            {
-                _apiKey = configuration["OpenAIApiKey"];
-                if (string.IsNullOrEmpty(_apiKey))
-                {
-                    throw new Exception("API Key not found in configuration.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-                // log the exception as necessary
-            }
+            var keyVaultUri = configuration["KeyVaultUri"];
+            _secretClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
         }
 
         public async Task<String> GetQuestions(string userInput)
         {
-            // var apiKey = Configuration["OpenAIApiKey
-            // var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
-            // var apiKey = _configuration["OpenAIApiKey"];
 
-            Console.WriteLine("\n\n\n _apiKey", _apiKey);
-            OpenAIAPI api = new (_apiKey);
+            // var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
+
+            // Retrieve the API key from Azure Key Vault
+            KeyVaultSecret secret = await _secretClient.GetSecretAsync("OpenAIApiKey");
+            var apiKey = secret.Value;
+
+
+            Console.WriteLine("\n\n\n apiKey", apiKey);
+            OpenAIAPI api = new (apiKey);
 
             // Create a new chat conversation
             var chat = api.Chat.CreateConversation();
