@@ -286,8 +286,7 @@ namespace EcoRater.Controllers
         }
 
 
-
-        // GET: Delete ProjectFirm by ID
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var projectFirm = _context.ProjectFirms.Find(id);
@@ -295,16 +294,10 @@ namespace EcoRater.Controllers
             {
                 return NotFound();
             }
-            return View(projectFirm);
-        }
 
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var projectFirm = _context.ProjectFirms.Find(id);
-
-            _ = _context.ProjectFirms.Remove(projectFirm);
+            _context.ProjectFirms.Remove(projectFirm);
             _context.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

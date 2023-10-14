@@ -39,9 +39,12 @@ else
                         }
                         @if (item?.OverallRating != null)
                         {
-                        <a href="@Url.Action("ViewRating", new { id = item.Id })" class="btn btn-outline-primary btn-sm">View Sustainability Rating</a>
+                            <a href="@Url.Action("ViewRating", new { id = item.Id })" class="btn btn-outline-primary btn-sm">View Sustainability Rating</a>
                         }
-                        <a href="@Url.Action("Delete", new { id = item?.Id })" class="btn btn-outline-danger btn-sm">Delete</a>
+                        <form method="post" action="@Url.Action("Delete", new { id = item?.Id })" onsubmit="return confirm('Are you sure you want to delete this?');" onclick="event.stopPropagation();">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                        </form>
+
                     </td>
                 </tr>
                 }
