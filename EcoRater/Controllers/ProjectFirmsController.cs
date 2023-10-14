@@ -76,7 +76,18 @@ namespace EcoRater.Controllers
             {
                 try
                 {
-                    _context.Update(projectFirm);
+                    var existingProjectFirm = _context.ProjectFirms.Find(id);
+                    if (existingProjectFirm == null)
+                    {
+                        return NotFound();
+                    }
+
+                    existingProjectFirm.Name = projectFirm.Name;
+                    existingProjectFirm.Description = projectFirm.Description;
+                    existingProjectFirm.Region = projectFirm.Region;
+
+
+                    _context.Update(existingProjectFirm);
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
                 }
