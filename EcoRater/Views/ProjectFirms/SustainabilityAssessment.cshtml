@@ -22,10 +22,10 @@
                 @foreach (var question in questions)
                 {
                     questionNumber++;
+                    var savedAnswer = (ViewBag.SavedAnswers.Count >= questionNumber) ? ViewBag.SavedAnswers[questionNumber - 1] : "";
 
                     <label for="answer-@questionNumber">@question</label>
-                    <textarea id="answer-@questionNumber" name="answers" class="form-control" rows="2"></textarea> <!-- Use textarea for longer responses -->
-
+                    <textarea id="answer-@questionNumber" name="answers" class="form-control" rows="2">@savedAnswer</textarea>
                 }
 
 

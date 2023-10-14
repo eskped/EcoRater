@@ -160,7 +160,7 @@ namespace EcoRater.Controllers
                 originalEntity.BusinessSize = model.BusinessSize;
                 originalEntity.OperationalRegions = model.OperationalRegions;
                 originalEntity.ManufacturingInvolved = model.ManufacturingInvolved;
-                originalEntity.SourcingFromOutside = model.SourcingFromOutside;
+                originalEntity.SourcingType = model.SourcingType;
                 originalEntity.ImpactOnLandUse = model.ImpactOnLandUse;
                 originalEntity.NumberOfEmployees = model.NumberOfEmployees;
                 originalEntity.PreviousSustainabilityInitiatives = model.PreviousSustainabilityInitiatives;
@@ -170,10 +170,10 @@ namespace EcoRater.Controllers
                 description.AppendLine($"Industry: {model.Industry}");
                 description.AppendLine($"Nature of Business: {model.BusinessNature}");
                 description.AppendLine($"Business Size: {model.BusinessSize}");
-                description.AppendLine($"Operating Regions: {model.OperationalRegions}");  // Corrected the property name
+                description.AppendLine($"Operating Regions: {model.OperationalRegions}");  
                 description.AppendLine($"Manufacturing: {model.ManufacturingInvolved}");
-                description.AppendLine($"Sourcing Materials from regions: {model.SourcingFromOutside} {model.SourcingType}");
-                description.AppendLine($"Direct impact on land use: {model.ImpactOnLandUse}"); // Corrected the property name
+                description.AppendLine($"Sourcing Materials from regions: {model.SourcingType}");
+                description.AppendLine($"Direct impact on land use: {model.ImpactOnLandUse}");
                 description.AppendLine($"Employee count: {model.NumberOfEmployees}");
                 description.AppendLine($"Has your business/project previously engaged in any sustainability initiatives or certifications : {model.PreviousSustainabilityInitiatives}");
                 description.AppendLine($"NaturalResourceUse: {model.ProduceEmissionsOrWaste}");
@@ -203,16 +203,22 @@ namespace EcoRater.Controllers
         }
 
         [HttpGet]
-        public IActionResult SustainabilityAssessment(int id)
+        public async Task<IActionResult> SustainabilityAssessment(int id)
         {
-            var projectFirm = _context.ProjectFirms.Find(id);
+            var projectFirm = await _context.ProjectFirms.FindAsync(id);
+
             if (projectFirm == null)
             {
                 _logger.LogInformation($"Model passed to view: {JsonConvert.SerializeObject(projectFirm)}");
                 return NotFound();
             }
-            return View(projectFirm); ;
+
+            var rawAnswersList = projectFirm.UserAnswers?.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>();
+            ViewBag.SavedAnswers = rawAnswersList.Select(a => a.Contains(". ") ? a.Split(". ", 2)[1] : a).ToList();
+
+            return View(projectFirm);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> SustainabilityAssessment(ProjectFirm model, List<String> answers)
@@ -238,8 +244,6 @@ namespace EcoRater.Controllers
 
                 string rating = await _openAiService.GetRating(projectFirm.QuestionsText + "|||" + projectFirm.UserAnswers);
 
-                // projectFirm.UserAnswers = userAnswers;
-
                 var ratingsList = rating.Split(";").ToList();
 
                 while (ratingsList.Count < 6)
@@ -260,13 +264,11 @@ namespace EcoRater.Controllers
                 {
                     projectFirm.EconomicRating = parsedValue3;
                 }
-                // projectFirm.OverallFeedback = ratingsList[4];
                 projectFirm.FutureRecommendations = ratingsList[4];
 
                 _context.Update(projectFirm);
                 await _context.SaveChangesAsync();
 
-                // After saving, redirect to a confirmation page or another appropriate action.
                 return RedirectToAction("Index");
              }
             catch

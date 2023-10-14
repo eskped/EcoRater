@@ -1,4 +1,6 @@
 ﻿@model ProjectFirm
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 
 @{
     ViewBag.Title = "Initial Questions";
@@ -17,24 +19,25 @@
                 <h4 class="mb-3">Nature of the Business/Project</h4>
                 <div class="form-group">
                     <label for="Industry">What is the primary industry or sector of your business/project?</label>
-                    <input type="text" class="form-control" id="Industry" name="Industry" placeholder="e.g., technology, manufacturing" required>
+                    <input type="text" value="@Model.Industry" class="form-control" id="Industry" name="Industry" placeholder="e.g., technology, manufacturing" required>
                 </div>
-
                 <div class="form-group">
                     <label for="BusinessNature">Is the business/project primarily online, offline, or a mix of both?</label>
-                    <select class="form-control" id="BusinessNature" name="BusinessNature" required>
+                    <select asp-for="BusinessNature" class="form-control">
                         <option value="">Select</option>
                         <option value="Online">Online</option>
                         <option value="Offline">Offline</option>
                         <option value="Both">Both</option>
                     </select>
+
+
                 </div>
 
                 <!-- Scale & Geography -->
                 <h4 class="mb-3 mt-5">Scale & Geography</h4>
                 <div class="form-group">
                     <label for="BusinessSize">How would you describe the size of your business/project?</label>
-                    <select class="form-control" id="BusinessSize" name="BusinessSize" required>
+                    <select asp-for="BusinessSize" class="form-control" id="BusinessSize" name="BusinessSize" required>
                         <option value="">Select</option>
                         <option value="Startup">Startup</option>
                         <option value="SME">SME</option>
@@ -44,22 +47,22 @@
 
                 <div class="form-group">
                     <label for="OperationalRegions">In which regions or countries does your business/project primarily operate?</label>
-                    <input type="text" class="form-control" id="OperationalRegions" name="OperationalRegions" placeholder="e.g., Europe, USA, Global" required>
+                    <input type="text" value="@Model.OperationalRegions" class="form-control" id="OperationalRegions" name="OperationalRegions" placeholder="e.g., Europe, USA, Global" required>
                 </div>
 
                 <!-- Supply Chain & Operations -->
                 <h4 class="mb-3 mt-5">Supply Chain & Operations</h4>
                 <div class="form-group">
                     <label for="ManufacturingInvolved">Does your business/project involve manufacturing or physical production of goods?</label>
-                    <select class="form-control" id="ManufacturingInvolved" name="ManufacturingInvolved" required>
+                    <select asp-for="ManufacturingInvolved" class="form-control" id="ManufacturingInvolved" name="ManufacturingInvolved" required>
                         <option value="">Select</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="SourcingType">Do you source materials or products from outside suppliers? If so, are these local or international?</label>
-                    <select class="form-control" id="SourcingType" name="SourcingType" required>
+                    <select asp-for="SourcingType" class="form-control" id="SourcingType" name="SourcingType" required>
                         <option value="">Select</option>
                         <option value="Local">Local</option>
                         <option value="International">International</option>
@@ -70,7 +73,7 @@
 
                 <div class="form-group">
                     <label for="ImpactOnLandUse">Do you have a direct impact on land use (e.g., farming, mining, construction)?</label>
-                    <select class="form-control" id="ImpactOnLandUse" name="ImpactOnLandUse" required>
+                    <select asp-for="ImpactOnLandUse" class="form-control" id="ImpactOnLandUse" name="ImpactOnLandUse" required>
                         <option value="">Select</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -82,17 +85,17 @@
                 <h4 class="mb-3 mt-5">Employees</h4>
                 <div class="form-group">
                     <label for="NumberOfEmployees">Approximately how many employees are part of your business/project?</label>
-                    <input type="number" class="form-control" id="NumberOfEmployees" name="NumberOfEmployees" placeholder="e.g., 100" required>
+                    <input type="number" value="@Model.NumberOfEmployees" class="form-control" id="NumberOfEmployees" name="NumberOfEmployees" placeholder="e.g., 100" required>
                 </div>
 
                 <!-- Previous Sustainability Initiatives -->
                 <h4 class="mb-3 mt-5">Previous Sustainability Initiatives</h4>
                 <div class="form-group">
                     <label for="PreviousSustainabilityInitiatives">Has your business/project previously engaged in any sustainability initiatives or certifications?</label>
-                    <select class="form-control" id="PreviousSustainabilityInitiatives" name="PreviousSustainabilityInitiatives" required>
+                    <select asp-for="PreviousSustainabilityInitiatives" class="form-control" id="PreviousSustainabilityInitiatives" name="PreviousSustainabilityInitiatives" required>
                         <option value="">Select</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
                     </select>
                 </div>
 
