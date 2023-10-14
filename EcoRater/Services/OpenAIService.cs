@@ -53,7 +53,11 @@ namespace EcoRater.Services
         public async Task<String> GetRating(string userAnswers)
         {
 
-            var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
+            // var apiKey = _configuration["OpenAIServiceOptions:ApiKey"];
+
+            KeyVaultSecret secret = await _secretClient.GetSecretAsync("OpenAIApiKey");
+            var apiKey = secret.Value;
+
             OpenAIAPI api = new(apiKey);
 
             // Create a new chat conversation
